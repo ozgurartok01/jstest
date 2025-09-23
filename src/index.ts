@@ -9,6 +9,10 @@ import { z } from "zod";
 const app = express();
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000;
+
+
+
 // -------------------- ZOD SCHEMAS --------------------
 
 // Body: POST /users
@@ -133,5 +137,4 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server http://localhost:${PORT} üzerinde çalışıyor`));
