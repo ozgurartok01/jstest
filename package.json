@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,8 @@
   "dependencies": {
     "better-sqlite3": "^12.2.0",
     "drizzle-orm": "^0.44.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
