@@ -25,3 +25,11 @@ Thumbs.db
 
 # VSCode settings (optional, personal)
 .vscode/
+
+# Turborepo cache
+.turbo/
+
+# Changeset files (keep config, ignore generated)
+.changeset/*.md
+!.changeset/config.json
+!.changeset/README.md

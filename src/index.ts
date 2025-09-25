@@ -18,7 +18,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Create user
-app.post("/users",userCreate);
+app.post("/users", (req: Request, res: Response) => userCreate(req, res));
 
 // List users (with simple pagination)
 app.get("/users",userList);
