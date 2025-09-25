@@ -1,6 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-
-
 import { create as userCreate} from "./routes/user-create"
 import { update as userUpdate} from "./routes/user-update"
 import { list as userList} from "./routes/user-list"
@@ -20,10 +18,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Create user
-app.post("/users", (req: Request, res: Response) => userCreate(req, res));
+app.post("/users",userCreate);
 
 // List users (with simple pagination)
-app.get("/users", (req: Request, res: Response) => userList(req,res));
+app.get("/users",userList);
 
 // Get user by id
 app.get("/users/:id", (req: Request, res: Response) => userGet(req, res));
