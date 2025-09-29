@@ -33,3 +33,6 @@ Thumbs.db
 .changeset/*.md
 !.changeset/config.json
 !.changeset/README.md
+
+# Amazon Q rules (project-specific)
+.amazonq/

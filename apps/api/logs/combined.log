@@ -1,0 +1,25 @@
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:15:23.511Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:31:16.637Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:38:06.748Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:38:12.520Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:42:19.698Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:42:31.598Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:42:38.154Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:43:09.635Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:45:05.732Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:45:16.220Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:45:44.887Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:49:25.777Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T11:49:54.159Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:30:00.507Z"}
+{"body":"{\n  \"name\": \"John Doe\",\n  \"age\": 25,\n  \"emails\": \"john@example.com\", \"john.work@company.com\"\n}\n","expose":true,"level":"error","message":"Server error: Expected ':' after property name in JSON at position 93 (line 5 column 1)","stack":"SyntaxError: Expected ':' after property name in JSON at position 93 (line 5 column 1)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n    at invokeCallback (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:524:28)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at processTicksAndRejections (node:internal/process/task_queues:90:21)","status":400,"statusCode":400,"timestamp":"2025-09-29T12:30:02.446Z","type":"entity.parse.failed"}
+{"body":"{\n  \"name\": \"John Doe\",\n  \"age\": 25,\n  \"emails\": \"john@example.com\", \"john.work@company.com\"\n}\n","expose":true,"level":"error","message":"Server error: Expected ':' after property name in JSON at position 93 (line 5 column 1)","stack":"SyntaxError: Expected ':' after property name in JSON at position 93 (line 5 column 1)\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n    at invokeCallback (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:524:28)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at processTicksAndRejections (node:internal/process/task_queues:90:21)","status":400,"statusCode":400,"timestamp":"2025-09-29T12:30:13.132Z","type":"entity.parse.failed"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:31:38.126Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:35:00.688Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:35:07.846Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:35:54.542Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:36:02.661Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T12:37:47.740Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T15:59:40.770Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T16:00:18.769Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-09-29T16:03:08.647Z"}

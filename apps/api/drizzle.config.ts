@@ -4,10 +4,10 @@ import { config } from "dotenv";
 config({ path: "../../.env" });
 
 export default defineConfig({
-  schema: "./src/schema.ts",
+  schema: "./src/schemas/schema.ts",
   out: "./drizzle",
   dialect: "sqlite",
   dbCredentials: {
-    url: process.env.DATABASE_URL!
+    url: `file:${process.env.DATABASE_URL}`
   }
 });

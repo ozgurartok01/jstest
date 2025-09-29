@@ -6,15 +6,17 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],  
+  ],
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "lint": "turbo run lint"
+    "dev": "turbo run dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",
+    "@types/winston": "^2.4.4",
     "turbo": "^2.5.8"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.15",
+    "winston": "^3.17.0"
   }
 }

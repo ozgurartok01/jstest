@@ -1,21 +1,22 @@
-import { db } from "../db";
+import { db } from "../../utils/db";
 import { Request, Response} from "express";
-import { users } from "../schema";
+import { users } from "../../schemas/schema";
 import { eq } from "drizzle-orm";
 import { ZodError, z } from "zod";
 
-import {userPatchSchema as patchSchema, idParamSchema} from "../zodschemas"
+import {userPatchSchema as patchSchema, idParamSchema} from "../../schemas/zodschemas"
 
-
-export const update = (req: Request, res: Response) => {
+export const update = async (req: Request, res: Response) => {
   try {
     const { id } = idParamSchema.parse(req.params);
     const patch = patchSchema.parse(req.body);
 
-    const result = db.update(users).set(patch).where(eq(users.id, id)).run();
-    if (result.changes === 0) return res.status(404).json({ error: "User not found" });
-
-    const updated = db.select().from(users).where(eq(users.id, id)).get();
+    const [updated] = await db.update(users)
+      .set(patch)
+      .where(eq(users.id, id))
+      .returning();
+      
+    if (!updated) return res.status(404).json({ error: "User not found" });
     res.json(updated);
   } catch (error) {
     if (error instanceof ZodError) {
