@@ -3,6 +3,7 @@ import { Request, Response} from "express"
 import { users, emails } from "../../schemas/schema";
 import { ZodError, z } from "zod";
 import { eq } from "drizzle-orm";
+import { createId } from '@paralleldrive/cuid2';
 
 import {userSchema as schema} from "../../schemas/zodschemas"
 
@@ -10,16 +11,18 @@ export const create = async (req: Request, res: Response) => {
   try {
     const { name, age, emails: userEmails } = schema.parse(req.body);
 
-    // Create user
+    // Create user with CUID2
+    const userId = createId();
     const [createdUser] = await db.insert(users)
-      .values({ name, age })
+      .values({ id: userId, name, age })
       .returning();
 
-    // Create emails
+    // Create emails with CUID2
     const emailsToInsert = userEmails.map((email: string, index: number) => ({
+      id: createId(),
       userId: createdUser.id,
       email,
-      isPrimary: index === 0, // First email is primary
+      isPrimary: index === 0,
     }));
 
     await db.insert(emails).values(emailsToInsert);

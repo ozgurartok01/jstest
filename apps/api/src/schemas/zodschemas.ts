@@ -16,7 +16,7 @@ export const userPatchSchema = z.object({
 
 // Params: /users/:id
 export const idParamSchema = z.object({
-  id: z.coerce.number().int().positive("id must be a positive integer"),
+  id: z.string().cuid2("Invalid ID format"),
 });
 
 // Query: GET /users?page&limit

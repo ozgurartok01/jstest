@@ -1,6 +1,6 @@
 import { db } from "../../utils/db";
 import { Request, Response} from "express";
-import { users } from "../../schemas/schema";
+import { users, emails } from "../../schemas/schema";
 import { eq } from "drizzle-orm";
 import { ZodError, z } from "zod";
 
@@ -17,7 +17,15 @@ export const update = async (req: Request, res: Response) => {
       .returning();
       
     if (!updated) return res.status(404).json({ error: "User not found" });
-    res.json(updated);
+
+    // Get user with emails
+    const userEmails = await db.select().from(emails)
+      .where(eq(emails.userId, id));
+
+    res.json({
+      ...updated,
+      emails: userEmails
+    });
   } catch (error) {
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });

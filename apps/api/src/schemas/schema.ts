@@ -1,17 +1,17 @@
-import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
 
 // Users table definition
 export const users = sqliteTable("users", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id").primaryKey(),
   name: text("name").notNull(),
   age: integer("age").notNull(),
 });
 
 // Emails table definition
 export const emails = sqliteTable("emails", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  userId: integer("user_id").notNull().references(() => users.id),
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => users.id),
   email: text("email").notNull(),
   isPrimary: integer("is_primary", { mode: "boolean" }).notNull().default(false),
   isDeleted: integer("is_deleted", { mode: "boolean" }).notNull().default(false),
