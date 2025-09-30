@@ -3,6 +3,7 @@ import { Request, Response} from "express";
 import { users, emails } from "../../schemas/schema";
 import { sql, eq } from "drizzle-orm";
 import { ZodError, z } from "zod";
+import logger from "../../utils/logger";
 
 import {listQuerySchema} from "../../schemas/zodschemas"
 
@@ -32,6 +33,9 @@ export const list = async (req: Request, res: Response) => {
 
     res.json({ page, limit, total, items: usersWithEmails });
   } catch (error) {
+    logger.error('User list failed:', error);
+    logger.debug('Debug info:', { error, query: req.query });
+    
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
     }

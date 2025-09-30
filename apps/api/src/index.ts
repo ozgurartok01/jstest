@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
-import { userCreate, userUpdate, userList, userDelete, userGet } from "./routes/user";
+import { userCreate, userUpdate, userRemove, userDelete, userGet } from "./routes/user";
 import logger from "./utils/logger";
 
 const app = express();
-app.use(express.json());
+//app.use(express.json()); //should I remove this?
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,7 +12,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/users", userCreate);
-app.get("/users", userList);
+app.get("/users", userRemove);
 app.get("/users/:id", userGet);
 app.patch("/users/:id", userUpdate);
 app.delete("/users/:id", userDelete);

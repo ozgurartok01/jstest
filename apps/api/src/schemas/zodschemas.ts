@@ -10,7 +10,7 @@ export const userPatchSchema = z.object({
   name: z.string().min(1).trim().optional(),
   age: z.coerce.number().int().min(0).optional(),
 }).refine(
-  (data) => Object.keys(data).length > 0,
+  (data) => Object.keys(data).length > 0,  //remove if more than one user schema
   { message: "Nothing to update" }
 );
 
