@@ -10,8 +10,9 @@ services:
     volumes:
       - ./data:/app/data
     restart: unless-stopped
+    command: ["sh", "-c", "cd ./apps/api && npx drizzle-kit migrate && npm run dev"]
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DATABASE_URL=/app/data/sqlite.db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/"]

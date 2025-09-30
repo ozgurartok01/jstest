@@ -8,4 +8,3 @@ WORKDIR /app
 COPY --from=install /app .
 EXPOSE 3000
 
-ENTRYPOINT ["npm"]
