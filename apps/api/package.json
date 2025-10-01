@@ -5,18 +5,24 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "cli": "ts-node src/cli.ts"
+  },
+  "bin": {
+    "user-cli": "./dist/cli.js"
   },
   "dependencies": {
+    "@drizzle-team/brocli": "^0.10.2",
     "@paralleldrive/cuid2": "^2.2.2",
+    "better-sqlite3": "^12.2.0",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "express": "^5.1.0",
     "winston": "^3.15.0",
-    "zod": "^4.1.11",
-    "@libsql/client": "^0.14.0"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.3",
     "@types/node": "^24.5.2",
     "drizzle-kit": "^0.31.4",
