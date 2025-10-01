@@ -1,12 +1,11 @@
 import { config } from "dotenv";
 
 config({ path: "../../.env" });
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
+import * as schema from "../schemas/schema";
 
-const client = createClient({
-  url: `file:${process.env.DATABASE_URL}`
-});
+const sqlite = new Database(process.env.DATABASE_URL || "./sqlite.db");
 
-// Connect Drizzle ORM to LibSQL
-export const db = drizzle(client);
+// Connect Drizzle ORM to SQLite with schema
+export const db = drizzle(sqlite, { schema });

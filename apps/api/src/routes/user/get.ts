@@ -10,16 +10,21 @@ export const get = async (req: Request, res: Response) => {
   try {
     const { id } = idParamSchema.parse(req.params);
 
-    const user = await db.select().from(users).where(eq(users.id, id));
-    if (!user[0]) return res.status(404).json({ error: "User not found" });
-
-    const userEmails = await db.select().from(emails)
-      .where(eq(emails.userId, id));
-
-    res.json({
-      ...user[0],
-      emails: userEmails
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, id),
+      with: {
+        emails: {
+          where: eq(emails.isDeleted, false),
+          columns: {
+            email: true
+          }
+        }
+      }
     });
+
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    res.json(user);
   } catch (error) {
     logger.error('User get failed:', error);
     logger.debug('Debug info:', { error, params: req.params });

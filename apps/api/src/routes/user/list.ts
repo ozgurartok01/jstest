@@ -1,7 +1,7 @@
 import { db } from "../../utils/db";
 import { Request, Response} from "express";
 import { users, emails } from "../../schemas/schema";
-import { sql, eq } from "drizzle-orm";
+import { sql, eq, count } from "drizzle-orm";
 import { ZodError, z } from "zod";
 import logger from "../../utils/logger";
 
@@ -12,26 +12,25 @@ export const list = async (req: Request, res: Response) => {
     const { page, limit } = listQuerySchema.parse(req.query);
     const offset = (page - 1) * limit;
 
-    // Get paginated users
-    const usersList = await db.select().from(users).limit(limit).offset(offset);
+    // Get paginated users with emails using relational query
+    const usersList = await db.query.users.findMany({
+      limit,
+      offset,
+      with: {
+        emails: {
+          where: eq(emails.isDeleted, false),
+          columns: {
+            email: true
+          }
+        }
+      }
+    });
     
-    // Get total count for pagination info
-    const totalResult = await db.select({ count: sql`count(*)` }).from(users);
+    // Get total count using count() function
+    const totalResult = await db.select({ count: count() }).from(users);
     const total = totalResult[0]?.count || 0;
 
-    // Get emails for each user
-    const usersWithEmails = await Promise.all(
-      usersList.map(async (user) => {
-        const userEmails = await db.select().from(emails)
-          .where(eq(emails.userId, user.id));
-        return {
-          ...user,
-          emails: userEmails
-        };
-      })
-    );
-
-    res.json({ page, limit, total, items: usersWithEmails });
+    res.json({ page, limit, total, items: usersList });
   } catch (error) {
     logger.error('User list failed:', error);
     logger.debug('Debug info:', { error, query: req.query });

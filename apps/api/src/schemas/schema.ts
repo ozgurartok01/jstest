@@ -17,7 +17,7 @@ export const emails = sqliteTable("emails", {
   userId: text("user_id").notNull().references(() => users.id),
   email: text("email").notNull(),
   isPrimary: integer("is_primary", { mode: "boolean" }).notNull().default(false),
-  // isDeleted: integer("is_deleted", { mode: "boolean" }).notNull().default(false), // remove
+  isDeleted: integer("is_deleted", { mode: "boolean" }).notNull().default(false), // remove
   createdAt: text("created_at").notNull().default("CURRENT_TIMESTAMP"),
   deletedAt: text("deleted_at"),
 });
