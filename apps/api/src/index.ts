@@ -3,7 +3,7 @@ import { userCreate, userUpdate, userRemove, userDelete, userGet } from "./route
 import logger from "./utils/logger";
 
 const app = express();
-//app.use(express.json()); //should I remove this?
+app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
