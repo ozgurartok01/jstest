@@ -1,9 +1,14 @@
 import { z } from "zod";
 
+const passwordSchema = z.string().min(8, "password must be at least 8 characters");
+const emailField = z.email({ message: "invalid email" }).transform((value) => value.trim().toLowerCase());
+
+
 export const userSchema = z.object({
   name: z.string().min(1, "name is required").trim(),
   age: z.coerce.number().int().min(0, "age must be >= 0"),
-  emails: z.array(z.string().email("invalid email")).min(1, "at least one email is required"),
+  password: passwordSchema,
+  emails: z.array(emailField).min(1, "at least one email is required"),
 });
 
 export const userPatchSchema = z.object({
@@ -13,6 +18,11 @@ export const userPatchSchema = z.object({
   (data) => Object.keys(data).length > 0,  //remove if more than one user schema
   { message: "Nothing to update" }
 );
+
+export const loginSchema = z.object({
+  email: emailField,
+  password: passwordSchema,
+});
 
 // Params: /users/:id
 export const idParamSchema = z.object({

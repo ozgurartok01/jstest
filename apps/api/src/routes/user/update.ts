@@ -1,11 +1,11 @@
-import { db } from "../../utils/db";
-import { Request, Response} from "express";
-import { users, emails } from "../../schemas/schema";
+import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
 import { ZodError, z } from "zod";
-import logger from "../../utils/logger";
 
-import {userPatchSchema as patchSchema, idParamSchema} from "../../schemas/zodschemas"
+import { db } from "../../utils/db";
+import logger from "../../utils/logger";
+import { emails, users } from "../../schemas/schema";
+import { userPatchSchema as patchSchema, idParamSchema } from "../../schemas/zodschemas";
 
 export const update = async (req: Request, res: Response) => {
   try {
@@ -19,13 +19,14 @@ export const update = async (req: Request, res: Response) => {
       
     if (!updated) return res.status(404).json({ error: "User not found" });
 
-    // Get user with emails
     const userEmails = await db.select().from(emails)
       .where(eq(emails.userId, id));
 
+    const { passwordHash: _, ...userWithoutPassword } = updated;
+
     res.json({
-      ...updated,
-      emails: userEmails
+      ...userWithoutPassword,
+      emails: userEmails,
     });
   } catch (error) {
     logger.error('User update failed:', error);
@@ -36,4 +37,4 @@ export const update = async (req: Request, res: Response) => {
     }
     return res.status(500).json({ error: "Internal server error" });
   }
-}
+};

@@ -1,16 +1,89 @@
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:03:35.908Z"}
-{"level":"error","message":"User creation failed: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError","stack":"ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]\n    at create (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\apps\\api\\src\\routes\\user\\create.ts:11:54)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:291:5)\n    at Function.handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:186:3)","timestamp":"2025-10-01T17:03:40.563Z"}
-{"error":{"message":"[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError"},"level":"debug","message":"Debug info:","timestamp":"2025-10-01T17:03:40.564Z"}
-{"level":"error","message":"User creation failed: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError","stack":"ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]\n    at create (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\apps\\api\\src\\routes\\user\\create.ts:11:54)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:291:5)\n    at Function.handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:186:3)","timestamp":"2025-10-01T17:05:10.450Z"}
-{"error":{"message":"[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError"},"level":"debug","message":"Debug info:","timestamp":"2025-10-01T17:05:10.451Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:06:34.363Z"}
-{"level":"error","message":"User creation failed: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError","stack":"ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]\n    at create (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\apps\\api\\src\\routes\\user\\create.ts:11:54)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:291:5)\n    at Function.handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:186:3)","timestamp":"2025-10-01T17:06:38.970Z"}
-{"error":{"message":"[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError"},"level":"debug","message":"Debug info:","timestamp":"2025-10-01T17:06:38.971Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:10:41.469Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:33:16.626Z"}
-{"level":"error","message":"User creation failed: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError","stack":"ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]\n    at create (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\apps\\api\\src\\routes\\user\\create.ts:11:54)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\lib\\layer.js:152:17)\n    at C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:295:15\n    at processParams (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:291:5)\n    at Function.handle (C:\\Users\\ozgur\\OneDrive\\Masaüstü\\jstest\\node_modules\\router\\index.js:186:3)","timestamp":"2025-10-01T17:33:22.415Z"}
-{"error":{"message":"[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]","name":"ZodError"},"level":"debug","message":"Debug info:","timestamp":"2025-10-01T17:33:22.416Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:34:06.835Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:34:51.439Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:35:00.991Z"}
-{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-01T17:35:03.622Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T14:24:23.191Z"}
+{"error":{"expiredAt":"2025-10-04T13:54:43.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"debug","message":"Token verification failed","timestamp":"2025-10-04T14:24:31.672Z"}
+{"error":{},"level":"debug","message":"Authorization failed","timestamp":"2025-10-04T14:24:31.672Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T14:25:23.682Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T14:29:30.341Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T14:56:31.123Z"}
+{"level":"debug","message":"Admin auth failed: user lacks privileges","timestamp":"2025-10-04T14:56:51.597Z","userId":"adxz1xakiowxmkyx54uuz5iz"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T14:57:51.505Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:09:18.883Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:09:46.786Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:10:13.044Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:10:51.477Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:11:20.216Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:11:45.203Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:13:20.871Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:14:47.268Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:16:33.793Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:16:54.944Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:17:09.295Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:18:48.300Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:19:04.437Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:19:23.238Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:19:45.581Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:20:15.175Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:20:40.920Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:20:58.599Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:21:41.865Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:21:57.399Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:22:19.199Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:23:47.116Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:23:50.278Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:26:20.718Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:27:53.605Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:28:14.584Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:28:27.547Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:28:28.551Z"}
+{"code":"SQLITE_ERROR","level":"error","message":"User login failed no such column: \"password\" - should this be a string literal in single-quotes?","stack":"SqliteError: no such column: \"password\" - should this be a string literal in single-quotes?\n    at Database.prepare (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at BetterSQLiteSession.prepareQuery (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\better-sqlite3\\session.ts:60:28)\n    at QueryPromise._prepare (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:147:78)\n    at QueryPromise.executeRaw (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:191:16)\n    at QueryPromise.execute (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:197:15)\n    at QueryPromise.then (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\query-promise.ts:31:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-10-04T15:29:02.469Z"}
+{"body":{"email":"ozgurartok_admin@gmail.com","password":"ozgur123"},"error":{"code":"SQLITE_ERROR"},"level":"debug","message":"Login debug info","timestamp":"2025-10-04T15:29:02.470Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:31:16.061Z"}
+{"code":"SQLITE_ERROR","level":"error","message":"User login failed no such column: \"is_admin\" - should this be a string literal in single-quotes?","stack":"SqliteError: no such column: \"is_admin\" - should this be a string literal in single-quotes?\n    at Database.prepare (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\better-sqlite3\\lib\\methods\\wrappers.js:5:21)\n    at BetterSQLiteSession.prepareQuery (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\better-sqlite3\\session.ts:60:28)\n    at QueryPromise._prepare (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:147:78)\n    at QueryPromise.executeRaw (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:191:16)\n    at QueryPromise.execute (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\sqlite-core\\query-builders\\query.ts:197:15)\n    at QueryPromise.then (C:\\Users\\ozgur\\Projects\\jstest\\node_modules\\src\\query-promise.ts:31:15)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-10-04T15:32:03.357Z"}
+{"body":{"email":"ozgurartok_admin@gmail.com","password":"ozgur123"},"error":{"code":"SQLITE_ERROR"},"level":"debug","message":"Login debug info","timestamp":"2025-10-04T15:32:03.358Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T15:33:14.933Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:16:12.930Z"}
+{"error":{"expiredAt":"2025-10-04T15:57:04.000Z","message":"jwt expired","name":"TokenExpiredError"},"level":"debug","message":"Token verification failed","timestamp":"2025-10-04T16:16:18.752Z"}
+{"error":{},"level":"debug","message":"Authorization failed","timestamp":"2025-10-04T16:16:18.752Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:18:07.765Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:18:36.904Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:18:54.032Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:19:24.600Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:19:57.135Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:20:22.849Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:20:26.312Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:20:30.569Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:20:49.718Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:20:50.573Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:23:37.266Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:24:27.184Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:34:26.181Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:34:30.574Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:34:37.859Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:34:39.876Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:37:49.495Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:41:00.589Z"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:39.867Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:48.413Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:49.093Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:49.236Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:49.365Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:42:49.829Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:43:06.835Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:43:07.575Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:55:26.863Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:55:41.232Z"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:10.369Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:13.239Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:14.760Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:15.428Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:15.765Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T16:56:41.899Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:57:49.333Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T16:58:23.847Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T17:00:15.616Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T17:00:18.165Z"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T17:00:30.503Z"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T17:01:35.094Z","userId":"wrlqiriyb8rnle327f18s7q4"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T17:02:10.236Z","userId":"f0ex8wmac0inw47drvf7v5t4"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T17:13:27.732Z"}
+{"level":"debug","message":"Forbidden: user lacks admin rights","timestamp":"2025-10-04T17:21:02.408Z","userId":"f0ex8wmac0inw47drvf7v5t4"}
+{"level":"info","message":"Server working on http://localhost:3000","timestamp":"2025-10-04T17:21:59.352Z"}

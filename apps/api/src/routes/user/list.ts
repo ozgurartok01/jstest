@@ -1,18 +1,17 @@
-import { db } from "../../utils/db";
-import { Request, Response} from "express";
-import { users, emails } from "../../schemas/schema";
-import { sql, eq, count } from "drizzle-orm";
+import { Request, Response } from "express";
+import { eq, count } from "drizzle-orm";
 import { ZodError, z } from "zod";
-import logger from "../../utils/logger";
 
-import {listQuerySchema} from "../../schemas/zodschemas"
+import { db } from "../../utils/db";
+import logger from "../../utils/logger";
+import { users, emails } from "../../schemas/schema";
+import { listQuerySchema } from "../../schemas/zodschemas";
 
 export const list = async (req: Request, res: Response) => {
   try {
     const { page, limit } = listQuerySchema.parse(req.query);
     const offset = (page - 1) * limit;
 
-    // Get paginated users with emails using relational query
     const usersList = await db.query.users.findMany({
       limit,
       offset,
@@ -20,17 +19,19 @@ export const list = async (req: Request, res: Response) => {
         emails: {
           where: eq(emails.isDeleted, false),
           columns: {
-            email: true
-          }
-        }
-      }
+            email: true,
+            isPrimary: true,
+          },
+        },
+      },
     });
     
-    // Get total count using count() function
     const totalResult = await db.select({ count: count() }).from(users);
     const total = totalResult[0]?.count || 0;
 
-    res.json({ page, limit, total, items: usersList });
+    const sanitizedUsers = usersList.map(({ passwordHash, ...rest }) => rest);
+
+    res.json({ page, limit, total, items: sanitizedUsers });
   } catch (error) {
     logger.error('User list failed:', error);
     logger.debug('Debug info:', { error, query: req.query });
@@ -40,4 +41,4 @@ export const list = async (req: Request, res: Response) => {
     }
     return res.status(500).json({ error: "Internal server error" });
   }
-}
+};

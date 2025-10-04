@@ -1,19 +1,20 @@
 import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
-import { ZodError, z } from "zod";
 
 import { db } from "../../utils/db";
 import logger from "../../utils/logger";
 import { emails, users } from "../../schemas/schema";
-import { userSchema as schema } from "../../schemas/zodschemas";
-import { hashPassword } from "../../utils/auth";
+import { hashPassword, signAccessToken } from "../../utils/auth";
+import { userSchema } from "../../schemas/zodschemas";
+import { ZodError, z } from "zod";
 
-export const create = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
-    const { name, age, emails: userEmails, password } = schema.parse(req.body);
-    const normalizedEmails = userEmails.map((email) => email.toLowerCase());
+    const { name, age, password, emails: userEmails } = userSchema.parse(req.body);
 
-    for (const email of normalizedEmails) {
+
+    //checking existing emails
+    for (const email of userEmails) {
       const existingEmail = await db.query.emails.findFirst({
         where: eq(emails.email, email),
       });
@@ -25,13 +26,15 @@ export const create = async (req: Request, res: Response) => {
 
     const passwordHash = await hashPassword(password);
 
+    
+    //inserting created user to db (is atomic)
     const result = db.transaction((tx) => {
       const createdUser = tx.insert(users)
         .values({ name, age, passwordHash })
         .returning()
         .get();
 
-      const emailsToInsert = normalizedEmails.map((email, index) => ({
+      const emailsToInsert = userEmails.map((email, index) => ({
         userId: createdUser.id,
         email,
         isPrimary: index === 0,
@@ -42,19 +45,24 @@ export const create = async (req: Request, res: Response) => {
       return { createdUser, emails: emailsToInsert };
     });
 
+    const token = signAccessToken({ userId: result.createdUser.id, isAdmin: result.createdUser.isAdmin });
     const { passwordHash: _, ...userWithoutPassword } = result.createdUser;
 
     return res.status(201).json({
-      ...userWithoutPassword,
-      emails: result.emails,
+      token,
+      user: {
+        userWithoutPassword,
+        emails: result.emails,
+      },
     });
   } catch (error) {
-    logger.error('User creation failed:', error);
-    logger.debug('Debug info:', { error, body: req.body });
-    
+    logger.error("User registration failed", error);
+    logger.debug("Registration debug info", { error, body: req.body });
+
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
     }
+
     return res.status(500).json({ error: "Internal server error" });
   }
 };
