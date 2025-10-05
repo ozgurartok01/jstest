@@ -19,10 +19,10 @@ app.post("/auth/register", authRegister);
 app.post("/auth/login", authLogin);
 
 app.post("/users", requireAuth, userCreate);
-app.get("/users", requireAuth, requireAdminAuth, userList);
+app.get("/users", userList);
 app.get("/users/:id", requireAuth, userGet);
 app.patch("/users/:id", requireAuth, userUpdate);
-app.delete("/users/:id", requireAuth, userDelete);
+app.delete("/users/:id", requireAuth, requireAdminAuth, userDelete);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Not Found" });

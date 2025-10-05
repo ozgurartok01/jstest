@@ -51,7 +51,7 @@ export const register = async (req: Request, res: Response) => {
     return res.status(201).json({
       token,
       user: {
-        userWithoutPassword,
+        ...userWithoutPassword,
         emails: result.emails,
       },
     });

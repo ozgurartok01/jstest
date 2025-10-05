@@ -8,7 +8,7 @@ export const requireAdminAuth = (req: Request, res: Response, next: NextFunction
   }
 
   if (!req.user.isAdmin) {
-    logger.debug("Forbidden: user lacks admin rights", { userId: req.user.id });
+    logger.debug("Forbidden: user lacks admin rights", { userId: req.user.id, isAdmin: req.user.isAdmin });
     return res.status(403).json({ error: "Forbidden" });
   }
 

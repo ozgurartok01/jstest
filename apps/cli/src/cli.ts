@@ -27,7 +27,7 @@ const buildHeaders = (requireAuth: boolean) => {
     return null;
   }
 
-  headers.Authorization = `Bearer ${token}`;
+  (headers as any).Authorization = `Bearer ${token}`;
   return headers;
 };
 
@@ -72,13 +72,13 @@ const createUser = command({
         console.error("Error creating user:", error);
         return;
       }
-
+      //type decleration
       const data = (await response.json()) as { token: string; user: any };
       printUserSummary(data.user);
       console.log(`Token: ${data.token}`);
       console.log("Set USER_CLI_TOKEN to this token to run authenticated commands.");
     } catch (error) {
-      logger.error("CLI user create failed", error);
+      logger.error("CLI user create failed", error as any);
       logger.debug("Create debug info", { name, age, emailList });
       console.error("Error creating user:", error);
     }
@@ -110,7 +110,7 @@ const loginUser = command({
       console.log(`Token: ${data.token}`);
       console.log("Export USER_CLI_TOKEN with this token to access protected commands.");
     } catch (error) {
-      logger.error("CLI login failed", error);
+      logger.error("CLI login failed", error as any);
       logger.debug("Login debug info", { email });
       console.error("Error logging in:", error);
     }
@@ -127,7 +127,7 @@ const listUsers = command({
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users`, { headers });
+      const response = await fetch(`${API_BASE_URL}/users`, { headers: headers as any });
 
       if (!response.ok) {
         console.error("Error fetching users:", response.statusText);
@@ -146,7 +146,7 @@ const listUsers = command({
         printUserSummary(user);
       });
     } catch (error) {
-      logger.error("CLI user list failed", error);
+      logger.error("CLI user list failed", error as any);
       logger.debug("List debug info", { endpoint: "/users" });
       console.error("Error listing users:", error);
     }
@@ -166,7 +166,7 @@ const getUser = command({
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users/${id}`, { headers });
+      const response = await fetch(`${API_BASE_URL}/users/${id}`, { headers: headers as any });
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -180,7 +180,7 @@ const getUser = command({
       const user = await response.json();
       printUserSummary(user);
     } catch (error) {
-      logger.error("CLI user get failed", error);
+      logger.error("CLI user get failed", error as any);
       logger.debug("Get debug info", { id });
       console.error("Error getting user:", error);
     }
@@ -213,7 +213,7 @@ const updateUser = command({
 
       const response = await fetch(`${API_BASE_URL}/users/${id}`, {
         method: "PATCH",
-        headers,
+        headers: headers as any,
         body: JSON.stringify(updateData),
       });
 
@@ -230,7 +230,7 @@ const updateUser = command({
       const result = await response.json();
       printUserSummary(result);
     } catch (error) {
-      logger.error("CLI user update failed", error);
+      logger.error("CLI user update failed", error as any);
       logger.debug("Update debug info", { id, name, age });
       console.error("Error updating user:", error);
     }
@@ -252,7 +252,7 @@ const deleteUser = command({
 
       const response = await fetch(`${API_BASE_URL}/users/${id}`, {
         method: "DELETE",
-        headers,
+        headers: headers as any,
       });
       
       if (!response.ok) {
@@ -266,7 +266,7 @@ const deleteUser = command({
 
       console.log("User deleted successfully.");
     } catch (error) {
-      logger.error("CLI user delete failed", error);
+      logger.error("CLI user delete failed", error as any);
       logger.debug("Delete debug info", { id });
       console.error("Error deleting user:", error);
     }
@@ -276,3 +276,4 @@ const deleteUser = command({
 run([createUser, loginUser, listUsers, getUser, updateUser, deleteUser], {
   name: "user-cli",
 });
+

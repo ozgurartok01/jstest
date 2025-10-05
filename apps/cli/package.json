@@ -1,0 +1,23 @@
+{
+  "name": "@express-learn/cli",
+  "version": "2.0.0",
+  "main": "dist/cli.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "cli": "node scripts/run-cli.js"
+  },
+  "bin": {
+    "user-cli": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@drizzle-team/brocli": "^0.10.2",
+    "node-fetch": "^2.7.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/node-fetch": "^2.6.11",
+    "typescript": "^5.9.2"
+  }
+}
