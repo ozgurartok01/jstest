@@ -1,36 +1,32 @@
 import { Request, Response } from "express";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 
 import { db } from "../../utils/db";
 import logger from "../../utils/logger";
 import { emails, users } from "../../schemas/schema";
-import { hashPassword, signAccessToken } from "../../utils/auth";
+import {signAccessToken } from "../../utils/auth";
 import { userSchema } from "../../schemas/zodschemas";
 import { ZodError, z } from "zod";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, age, password, emails: userEmails } = userSchema.parse(req.body);
+    const { name, age, emails: userEmails } = userSchema.parse(req.body);
 
+    //removed password
 
-    //checking existing emails
-    for (const email of userEmails) {
-      const existingEmail = await db.query.emails.findFirst({
-        where: eq(emails.email, email),
+    //inserting created user to db (is atomic)
+    const result = await db.transaction(async (tx) => {
+      const existingEmails = await tx.query.emails.findMany({
+        where: inArray(emails.email, userEmails),
       });
 
-      if (existingEmail && existingEmail.isDeleted === false) {
-        return res.status(409).json({ error: "Email already registered" });
+      if (existingEmails.length > 0) {
+        throw new Error("Email already registered");
       }
-    }
 
-    const passwordHash = await hashPassword(password);
-
-    
-    //inserting created user to db (is atomic)
-    const result = db.transaction((tx) => {
-      const createdUser = tx.insert(users)
-        .values({ name, age, passwordHash })
+      const createdUser = await tx
+        .insert(users)
+        .values({ name, age})
         .returning()
         .get();
 
@@ -40,20 +36,16 @@ export const register = async (req: Request, res: Response) => {
         isPrimary: index === 0,
       }));
 
-      tx.insert(emails).values(emailsToInsert).run();
+      await tx.insert(emails).values(emailsToInsert).run();
 
-      return { createdUser, emails: emailsToInsert };
+      return { user: createdUser, emails: emailsToInsert };
     });
 
-    const token = signAccessToken({ userId: result.createdUser.id, isAdmin: result.createdUser.isAdmin });
-    const { passwordHash: _, ...userWithoutPassword } = result.createdUser;
+    const token = signAccessToken( result.user);
 
     return res.status(201).json({
       token,
-      user: {
-        ...userWithoutPassword,
-        emails: result.emails,
-      },
+      ...result
     });
   } catch (error) {
     logger.error("User registration failed", error);

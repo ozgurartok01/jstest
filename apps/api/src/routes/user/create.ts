@@ -6,11 +6,10 @@ import { db } from "../../utils/db";
 import logger from "../../utils/logger";
 import { emails, users } from "../../schemas/schema";
 import { userSchema as schema } from "../../schemas/zodschemas";
-import { hashPassword } from "../../utils/auth";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { name, age, emails: userEmails, password } = schema.parse(req.body);
+    const { name, age, emails: userEmails } = schema.parse(req.body);
     const normalizedEmails = userEmails.map((email) => email.toLowerCase());
 
     for (const email of normalizedEmails) {
@@ -23,11 +22,9 @@ export const create = async (req: Request, res: Response) => {
       }
     }
 
-    const passwordHash = await hashPassword(password);
-
-    const result = db.transaction((tx) => {
-      const createdUser = tx.insert(users)
-        .values({ name, age, passwordHash })
+    const result = await db.transaction(async (tx) => {
+      const createdUser = await tx.insert(users)
+        .values({ name, age })
         .returning()
         .get();
 
@@ -42,7 +39,7 @@ export const create = async (req: Request, res: Response) => {
       return { createdUser, emails: emailsToInsert };
     });
 
-    const { passwordHash: _, ...userWithoutPassword } = result.createdUser;
+    const {...userWithoutPassword } = result.createdUser;
 
     return res.status(201).json({
       ...userWithoutPassword,

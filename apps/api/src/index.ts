@@ -3,7 +3,6 @@ import express, { NextFunction, Request, Response } from "express";
 import { authLogin, authRegister } from "./routes/auth";
 import { userCreate, userUpdate, userList, userDelete, userGet } from "./routes/user";
 import { requireAuth } from "./middleware/requireAuth";
-import { requireAdminAuth } from "./middleware/requireAdminAuth";
 import logger from "./utils/logger";
 
 const app = express();
@@ -22,7 +21,7 @@ app.post("/users", requireAuth, userCreate);
 app.get("/users", userList);
 app.get("/users/:id", requireAuth, userGet);
 app.patch("/users/:id", requireAuth, userUpdate);
-app.delete("/users/:id", requireAuth, requireAdminAuth, userDelete);
+app.delete("/users/:id", requireAuth, userDelete);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Not Found" });

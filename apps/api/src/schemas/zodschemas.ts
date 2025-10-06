@@ -1,13 +1,11 @@
 import { z } from "zod";
 
-const passwordSchema = z.string().min(8, "password must be at least 8 characters");
 const emailField = z.email({ message: "invalid email" }).transform((value) => value.trim().toLowerCase());
 
 
 export const userSchema = z.object({
   name: z.string().min(1, "name is required").trim(),
   age: z.coerce.number().int().min(0, "age must be >= 0"),
-  password: passwordSchema,
   emails: z.array(emailField).min(1, "at least one email is required"),
 });
 
@@ -20,8 +18,7 @@ export const userPatchSchema = z.object({
 );
 
 export const loginSchema = z.object({
-  email: emailField,
-  password: passwordSchema,
+  email: emailField
 });
 
 // Params: /users/:id

@@ -7,7 +7,7 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Authorization header missing" });
+    return res.status(401).json({ error: "Authentication header missing" });
   }
 
   const token = authHeader.replace("Bearer", "").trim();

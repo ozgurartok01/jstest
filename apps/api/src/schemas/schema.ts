@@ -7,7 +7,6 @@ export const users = sqliteTable("users", {
   id: text("id").primaryKey().$defaultFn(() => createId()),
   name: text("name").notNull(),
   age: integer("age").notNull(),
-  passwordHash: text("password_hash"),
   isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false),
 });
 

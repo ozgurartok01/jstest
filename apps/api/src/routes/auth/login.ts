@@ -6,11 +6,11 @@ import { db } from "../../utils/db";
 import logger from "../../utils/logger";
 import { emails } from "../../schemas/schema";
 import { loginSchema } from "../../schemas/zodschemas";
-import { signAccessToken, verifyPassword } from "../../utils/auth";
+import { signAccessToken } from "../../utils/auth";
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = loginSchema.parse(req.body);
+    const { email } = loginSchema.parse(req.body);
 
     const emailRecord = await db.query.emails.findFirst({
       where: eq(emails.email, email),
@@ -19,34 +19,25 @@ export const login = async (req: Request, res: Response) => {
       },
     });
 
-    if (!emailRecord || emailRecord.isDeleted) {
+    if (!emailRecord) { //remove
       //should we log here?
-      return res.status(401).json({ error: "No such email credentials" });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = emailRecord.user;
 
-    if (!user || !user.passwordHash) {
-      return res.status(401).json({ error: "No such user credentials" });
+    if (!user) {  //exception
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    //important line for authorization 
-    const isMatch = await verifyPassword(password, user.passwordHash);
-
-    if (!isMatch) {
-      return res.status(401).json({ error: "Wrong password credentials" });
-    }
-
-    const token = signAccessToken({ userId: user.id, isAdmin: user.isAdmin });
-    const { passwordHash: _, ...userWithoutPassword } = user;
+    const token = signAccessToken(user); //user object pass
 
     return res.json({
       token,
-      user: userWithoutPassword,
+      user
     });
   } catch (error) {
-    logger.error("User login failed", error);
-    logger.debug("Login debug info", { error, body: req.body });
+    logger.debug("User login failed", { error, body: req.body });
 
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
