@@ -16,7 +16,7 @@ export const remove = async (req: Request, res: Response) => {
     // Delete user
     const result = await db.delete(users).where(eq(users.id, id));
     
-    if (result.changes === 0) return res.status(404).json({ error: "User not found" });
+    
     res.status(204).send();
   }
   catch(error){

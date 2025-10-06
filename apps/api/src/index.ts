@@ -18,7 +18,7 @@ app.post("/auth/register", authRegister);
 app.post("/auth/login", authLogin);
 
 app.post("/users", requireAuth, userCreate);
-app.get("/users", userList);
+app.get("/users", requireAuth,userList);
 app.get("/users/:id", requireAuth, userGet);
 app.patch("/users/:id", requireAuth, userUpdate);
 app.delete("/users/:id", requireAuth, userDelete);

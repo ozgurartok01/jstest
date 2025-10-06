@@ -17,7 +17,7 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
 
     req.user = {
       id: payload.sub,
-      isAdmin: payload.isAdmin,
+      isAdmin: payload.isAdmin, //kullanıcı rollerini arrayle tut
     };
 
     //console.log(req.user.id);

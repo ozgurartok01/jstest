@@ -26,7 +26,7 @@ export const get = async (req: Request, res: Response) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    const { passwordHash: _, ...userWithoutPassword } = user;
+    const {...userWithoutPassword } = user;
 
     res.json(userWithoutPassword);
   } catch (error) {

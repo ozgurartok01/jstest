@@ -7,6 +7,7 @@ export const userSchema = z.object({
   name: z.string().min(1, "name is required").trim(),
   age: z.coerce.number().int().min(0, "age must be >= 0"),
   emails: z.array(emailField).min(1, "at least one email is required"),
+  role: z.enum(["admin","customer"])
 });
 
 export const userPatchSchema = z.object({
@@ -20,6 +21,7 @@ export const userPatchSchema = z.object({
 export const loginSchema = z.object({
   email: emailField
 });
+
 
 // Params: /users/:id
 export const idParamSchema = z.object({

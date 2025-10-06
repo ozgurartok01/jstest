@@ -3,14 +3,14 @@ import { eq, inArray } from "drizzle-orm";
 
 import { db } from "../../utils/db";
 import logger from "../../utils/logger";
-import { emails, users } from "../../schemas/schema";
+import { emails, users} from "../../schemas/schema";
 import {signAccessToken } from "../../utils/auth";
 import { userSchema } from "../../schemas/zodschemas";
 import { ZodError, z } from "zod";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, age, emails: userEmails } = userSchema.parse(req.body);
+    const { name, age, emails: userEmails, role } = userSchema.parse(req.body);
 
     //removed password
 
@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 
       const createdUser = await tx
         .insert(users)
-        .values({ name, age})
+        .values({ name, age, role})
         .returning()
         .get();
 

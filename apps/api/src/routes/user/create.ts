@@ -9,7 +9,7 @@ import { userSchema as schema } from "../../schemas/zodschemas";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { name, age, emails: userEmails } = schema.parse(req.body);
+    const { name, age, emails: userEmails, role } = schema.parse(req.body);
     const normalizedEmails = userEmails.map((email) => email.toLowerCase());
 
     for (const email of normalizedEmails) {
@@ -24,7 +24,7 @@ export const create = async (req: Request, res: Response) => {
 
     const result = await db.transaction(async (tx) => {
       const createdUser = await tx.insert(users)
-        .values({ name, age })
+        .values({ name, age, role })
         .returning()
         .get();
 
@@ -34,12 +34,12 @@ export const create = async (req: Request, res: Response) => {
         isPrimary: index === 0,
       }));
 
-      tx.insert(emails).values(emailsToInsert).run();
+      await tx.insert(emails).values(emailsToInsert).run();
 
       return { createdUser, emails: emailsToInsert };
     });
 
-    const {...userWithoutPassword } = result.createdUser;
+    const { ...userWithoutPassword } = result.createdUser;
 
     return res.status(201).json({
       ...userWithoutPassword,
@@ -52,6 +52,7 @@ export const create = async (req: Request, res: Response) => {
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
     }
+
     return res.status(500).json({ error: "Internal server error" });
   }
 };

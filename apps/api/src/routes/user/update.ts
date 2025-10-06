@@ -22,7 +22,7 @@ export const update = async (req: Request, res: Response) => {
     const userEmails = await db.select().from(emails)
       .where(eq(emails.userId, id));
 
-    const { passwordHash: _, ...userWithoutPassword } = updated;
+    const {...userWithoutPassword } = updated;
 
     res.json({
       ...userWithoutPassword,

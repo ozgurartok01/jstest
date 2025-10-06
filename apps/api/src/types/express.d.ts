@@ -4,10 +4,10 @@ declare global {
   namespace Express {
     interface User {
       id: string;
-      isAdmin?: boolean;
+      role?: string;
     }
 
-    interface Request {
+    interface Request { 
       user?: User;
     }
   }

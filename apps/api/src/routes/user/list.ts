@@ -29,7 +29,7 @@ export const list = async (req: Request, res: Response) => {
     const totalResult = await db.select({ count: count() }).from(users);
     const total = totalResult[0]?.count || 0;
 
-    const sanitizedUsers = usersList.map(({ passwordHash, ...rest }) => rest);
+    const sanitizedUsers = usersList.map(({...rest }) => rest);
 
     res.json({ page, limit, total, items: sanitizedUsers });
   } catch (error) {

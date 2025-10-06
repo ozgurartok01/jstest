@@ -7,13 +7,12 @@ export const users = sqliteTable("users", {
   id: text("id").primaryKey().$defaultFn(() => createId()),
   name: text("name").notNull(),
   age: integer("age").notNull(),
-  isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false),
+  role: text("role").notNull(),
 });
 
-// Emails table definition  /Users emails convention name _
+// Emails table definition /Users emails convention name _
 export const emails = sqliteTable("emails", {
   id: text("id").primaryKey().$defaultFn(() => createId()),
-
   userId: text("user_id").notNull().references(() => users.id),
   email: text("email").notNull(),
   isPrimary: integer("is_primary", { mode: "boolean" }).notNull().default(false),

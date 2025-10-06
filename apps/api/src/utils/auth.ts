@@ -7,21 +7,21 @@ import { env } from "../config/env";
 
 export interface AccessTokenPayload extends DefaultJwtPayload {
   sub: string;
-  isAdmin: boolean;
+  role: string;
 }
 
 export interface User {
   id: string;
-  isAdmin?: boolean;
+  role?: string;
 }
 
 export function signAccessToken(arg: User): string {
-  const { id, isAdmin } = arg;
+  const { id, role } = arg;
 
   const options: SignOptions = {
     expiresIn: env.jwtExpiresIn as StringValue,
   };
-  return jwt.sign({ sub: id, isAdmin }, env.jwtSecret as Secret, options);
+  return jwt.sign({ sub: id, role }, env.jwtSecret as Secret, options);
 }
 
 export const verifyAccessToken = (token: string) => {
