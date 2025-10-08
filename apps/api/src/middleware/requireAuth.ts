@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger";
 import { verifyAccessToken } from "../utils/auth";
 
+import defineAbilityFor from "../utils/define-Ability";
+
 export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
@@ -17,10 +19,11 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
 
     req.user = {
       id: payload.sub,
-      isAdmin: payload.isAdmin, //kullanıcı rollerini arrayle tut
+      role: payload.role, //kullanıcı rollerini arrayle tut
     };
 
-    //console.log(req.user.id);
+    req.ability = defineAbilityFor(req.user)
+
 
     return next();
   } catch (error) {

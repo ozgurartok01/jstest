@@ -6,6 +6,8 @@ import { db } from "../../utils/db";
 import logger from "../../utils/logger";
 import { emails, users } from "../../schemas/schema";
 import { userSchema as schema } from "../../schemas/zodschemas";
+// import { defineAbilityFor } from "../../utils/define-Ability";
+
 
 export const create = async (req: Request, res: Response) => {
   try {

@@ -7,7 +7,7 @@ export const users = sqliteTable("users", {
   id: text("id").primaryKey().$defaultFn(() => createId()),
   name: text("name").notNull(),
   age: integer("age").notNull(),
-  role: text("role").notNull(),
+  role: text("role").notNull(), //json array
 });
 
 // Emails table definition /Users emails convention name _

@@ -8,6 +8,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.3",
     "@drizzle-team/brocli": "^0.10.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@types/jsonwebtoken": "^9.0.10",

@@ -15,7 +15,7 @@ export interface User {
   role?: string;
 }
 
-export function signAccessToken(arg: User): string {
+export function signAccessToken(arg: User): string { // no need for this
   const { id, role } = arg;
 
   const options: SignOptions = {

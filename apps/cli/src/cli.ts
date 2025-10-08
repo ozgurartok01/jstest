@@ -1,10 +1,54 @@
 import { command, run, string, number } from "@drizzle-team/brocli";
 import fetch from "node-fetch";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import os from "os";
+import path from "path";
 
 import logger from "./utils/logger";
 
+type UserListResponse = {
+  page: number;
+  limit: number;
+  total: number;
+  items: any[];
+};
+
 const API_BASE_URL = process.env.API_BASE_URL ?? "http://localhost:3000";
 const AUTH_BASE_URL = `${API_BASE_URL}/auth`;
+const CONFIG_DIR = path.join(os.homedir(), ".user-cli");
+const TOKEN_FILE = path.join(CONFIG_DIR, "token");
+let tokenCache: string | null | undefined;
+
+const ensureConfigDir = () => {
+  if (!existsSync(CONFIG_DIR)) {
+    mkdirSync(CONFIG_DIR, { recursive: true });
+  }
+};
+
+const saveToken = (token: string) => {
+  try {
+    ensureConfigDir();
+    writeFileSync(TOKEN_FILE, token, "utf-8");
+    tokenCache = token;
+  } catch (error) {
+    logger.warn("Failed to persist CLI token", { error });
+  }
+};
+
+const loadToken = (): string | null => {
+  if (typeof tokenCache === "string") {
+    return tokenCache;
+  }
+
+  try {
+    const token = readFileSync(TOKEN_FILE, "utf-8").trim();
+    tokenCache = token || null;
+    return tokenCache;
+  } catch {
+    tokenCache = null;
+    return null;
+  }
+};
 
 const parseEmailList = (emailList: string) =>
   emailList
@@ -21,13 +65,16 @@ const buildHeaders = (requireAuth: boolean) => {
     return headers;
   }
 
-  const token = process.env.USER_CLI_TOKEN;
+  const token = process.env.USER_CLI_TOKEN ?? loadToken();
   if (!token) {
-    console.error("Missing USER_CLI_TOKEN. Run 'user-cli login' and set the token before calling protected commands.");
+    console.error(
+      "Missing USER_CLI_TOKEN. Run 'user-cli login' or 'user-cli create' to get a token."
+    );
+    console.error(`If the CLI saved a token, check ${TOKEN_FILE}`);
     return null;
   }
 
-  (headers as any).Authorization = `Bearer ${token}`;
+  headers.Authorization = `Bearer ${token}`;
   return headers;
 };
 
@@ -49,9 +96,9 @@ const createUser = command({
     name: string().desc("User name").alias("n").required(),
     age: number().desc("User age").alias("a").required(),
     emailList: string().desc("Comma-separated emails").alias("e").required(),
-    password: string().desc("User password").alias("p").required(),
+    role: string().desc("User role (admin or customer)").alias("r").required(),
   },
-  handler: async ({ name, age, emailList, password }) => {
+  handler: async ({ name, age, emailList, role }) => {
     try {
       const emails = parseEmailList(emailList);
 
@@ -63,23 +110,27 @@ const createUser = command({
       const response = await fetch(`${AUTH_BASE_URL}/register`, {
         method: "POST",
         headers: buildHeaders(false)!,
-        body: JSON.stringify({ name, age, password, emails }),
+        body: JSON.stringify({ name, age, emails, role }),
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: response.statusText }));
+        const error = await response
+          .json()
+          .catch(() => ({ error: response.statusText }));
         logger.debug("Register failed", error);
         console.error("Error creating user:", error);
         return;
       }
-      //type decleration
+
       const data = (await response.json()) as { token: string; user: any };
+      saveToken(data.token);
+      process.env.USER_CLI_TOKEN = data.token;
       printUserSummary(data.user);
       console.log(`Token: ${data.token}`);
-      console.log("Set USER_CLI_TOKEN to this token to run authenticated commands.");
+      console.log(`Token saved to ${TOKEN_FILE}. Future commands auto-load it.`);
     } catch (error) {
       logger.error("CLI user create failed", error as any);
-      logger.debug("Create debug info", { name, age, emailList });
+      logger.debug("Create debug info", { name, age, emailList, role });
       console.error("Error creating user:", error);
     }
   },
@@ -90,25 +141,28 @@ const loginUser = command({
   shortDesc: "Authenticate and receive a JWT",
   options: {
     email: string().desc("Account email").alias("e").required(),
-    password: string().desc("Account password").alias("p").required(),
   },
-  handler: async ({ email, password }) => {
+  handler: async ({ email }) => {
     try {
       const response = await fetch(`${AUTH_BASE_URL}/login`, {
         method: "POST",
         headers: buildHeaders(false)!,
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email }),
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: response.statusText }));
+        const error = await response
+          .json()
+          .catch(() => ({ error: response.statusText }));
         console.error("Login failed:", error);
         return;
       }
 
       const data = (await response.json()) as { token: string };
+      saveToken(data.token);
+      process.env.USER_CLI_TOKEN = data.token;
       console.log(`Token: ${data.token}`);
-      console.log("Export USER_CLI_TOKEN with this token to access protected commands.");
+      console.log(`Token saved to ${TOKEN_FILE}. Future commands auto-load it.`);
     } catch (error) {
       logger.error("CLI login failed", error as any);
       logger.debug("Login debug info", { email });
@@ -120,34 +174,44 @@ const loginUser = command({
 const listUsers = command({
   name: "list",
   shortDesc: "List all users",
-  handler: async () => {
+  options: {
+    page: number().desc("Page number").default(1),
+    limit: number().desc("Page size").default(10),
+  },
+  handler: async ({ page, limit }) => {
     try {
       const headers = buildHeaders(true);
       if (!headers) {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users`, { headers: headers as any });
+      const response = await fetch(`${API_BASE_URL}/users?page=${page}&limit=${limit}`, {
+        headers: headers as any,
+      });
 
       if (!response.ok) {
         console.error("Error fetching users:", response.statusText);
         return;
       }
 
-      const data = (await response.json()) as any;
-      const users = Array.isArray(data) ? data : data.items;
+      const payload = (await response.json()) as UserListResponse | any[];
+      const items = Array.isArray(payload) ? payload : payload.items ?? [];
 
-      if (!users || users.length === 0) {
+      if (items.length === 0) {
         console.log("No users found.");
         return;
       }
 
-      users.forEach((user: any) => {
+      if (!Array.isArray(payload)) {
+        console.log(`Page ${payload.page} / Limit ${payload.limit} / Total ${payload.total}`);
+      }
+
+      for (const user of items) {
         printUserSummary(user);
-      });
+        console.log("---");
+      }
     } catch (error) {
       logger.error("CLI user list failed", error as any);
-      logger.debug("List debug info", { endpoint: "/users" });
       console.error("Error listing users:", error);
     }
   },
@@ -166,7 +230,9 @@ const getUser = command({
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users/${id}`, { headers: headers as any });
+      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
+        headers: headers as any,
+      });
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -221,7 +287,9 @@ const updateUser = command({
         if (response.status === 404) {
           console.log("User not found.");
         } else {
-          const error = await response.json().catch(() => ({ error: response.statusText }));
+          const error = await response
+            .json()
+            .catch(() => ({ error: response.statusText }));
           console.error("Error updating user:", error);
         }
         return;
@@ -254,7 +322,7 @@ const deleteUser = command({
         method: "DELETE",
         headers: headers as any,
       });
-      
+
       if (!response.ok) {
         if (response.status === 404) {
           console.log("User not found.");
@@ -276,4 +344,3 @@ const deleteUser = command({
 run([createUser, loginUser, listUsers, getUser, updateUser, deleteUser], {
   name: "user-cli",
 });
-
