@@ -79,7 +79,7 @@ const buildHeaders = (requireAuth: boolean) => {
 };
 
 const printUserSummary = (user: any) => {
-  console.log(`User: ${user.name} (${user.id})`);
+  console.log(`User: ${user.name} (${user.id})${user.age !== undefined ? ` - age ${user.age}` : ""}`);
 
   if (user.emails && user.emails.length > 0) {
     const details = user.emails
@@ -158,11 +158,14 @@ const loginUser = command({
         return;
       }
 
-      const data = (await response.json()) as { token: string };
+      const data = (await response.json()) as { token: string, user: any };
       saveToken(data.token);
       process.env.USER_CLI_TOKEN = data.token;
       console.log(`Token: ${data.token}`);
       console.log(`Token saved to ${TOKEN_FILE}. Future commands auto-load it.`);
+      console.log("-----");
+      console.log(`User: ${data.user.name}`);
+      console.log(`Logged as: ${data.user.role}`);
     } catch (error) {
       logger.error("CLI login failed", error as any);
       logger.debug("Login debug info", { email });

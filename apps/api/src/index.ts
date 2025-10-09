@@ -19,7 +19,7 @@ app.post("/auth/register", authRegister);
 app.post("/auth/login", authLogin);
 
 app.post("/users", requireAuth, authorize('create', 'User'),userCreate);
-app.get("/users",userList);
+app.get("/users",requireAuth, authorize('read', 'User'), userList);
 app.get("/users/:id", requireAuth, userGet);
 app.patch("/users/:id", requireAuth, authorize('update', 'User', (req :Request) => ({ id: req.params.id })),userUpdate);
 app.delete("/users/:id", requireAuth, authorize('delete', 'User', (req :Request) => ({ id: req.params.id })), userDelete);

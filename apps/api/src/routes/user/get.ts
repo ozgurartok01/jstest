@@ -10,6 +10,7 @@ import { idParamSchema } from "../../schemas/zodschemas";
 export const get = async (req: Request, res: Response) => {
   try {
     const { id } = idParamSchema.parse(req.params);
+    const canSeeEmails = req.ability?.can('read', 'Email') ?? false;
 
     const user = await db.query.users.findFirst({
       where: eq(users.id, id),
@@ -26,9 +27,10 @@ export const get = async (req: Request, res: Response) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    const {...userWithoutPassword } = user;
+    const { emails: userEmails, ...userData } = user;
+    const payload = canSeeEmails ? { ...userData, emails: userEmails } : userData;
 
-    res.json(userWithoutPassword);
+    res.json(payload);
   } catch (error) {
     logger.error('User get failed:', error);
     logger.debug('Debug info:', { error, params: req.params });

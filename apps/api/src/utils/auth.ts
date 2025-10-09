@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import jwt, { type JwtPayload as DefaultJwtPayload, type Secret, type SignOptions } from "jsonwebtoken";
 import type { StringValue } from "ms";
 
