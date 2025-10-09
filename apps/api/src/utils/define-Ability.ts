@@ -8,7 +8,7 @@ const defineAbilityFor = (user: User) => defineAbility((can, cannot) => {
     can('manage', 'Email');
   } else {
     cannot('read', 'Email');
-    can('update', 'User', ['name'], { id: user.id });
+    can('update', 'User', ['name'], { id: user.id }); 
     can('delete', 'User', { id: user.id });
   }
 });
