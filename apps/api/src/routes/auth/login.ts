@@ -19,14 +19,16 @@ export const login = async (req: Request, res: Response) => {
       },
     });
 
-    if (!emailRecord) { //remove
+    if (!emailRecord) {
+      //remove
       //should we log here?
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const user = emailRecord.user;
 
-    if (!user) {  //exception
+    if (!user) {
+      //exception
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
@@ -34,7 +36,7 @@ export const login = async (req: Request, res: Response) => {
 
     return res.json({
       token,
-      user
+      user,
     });
   } catch (error) {
     logger.debug("User login failed", { error, body: req.body });

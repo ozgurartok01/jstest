@@ -8,7 +8,6 @@ import { emails, users } from "../../schemas/schema";
 import { userSchema as schema } from "../../schemas/zodschemas";
 // import { defineAbilityFor } from "../../utils/define-Ability";
 
-
 export const create = async (req: Request, res: Response) => {
   try {
     const { name, age, emails: userEmails, role } = schema.parse(req.body);
@@ -25,7 +24,8 @@ export const create = async (req: Request, res: Response) => {
     }
 
     const result = await db.transaction(async (tx) => {
-      const createdUser = await tx.insert(users)
+      const createdUser = await tx
+        .insert(users)
         .values({ name, age, role })
         .returning()
         .get();
@@ -48,9 +48,9 @@ export const create = async (req: Request, res: Response) => {
       emails: result.emails,
     });
   } catch (error) {
-    logger.error('User creation failed:', error);
-    logger.debug('Debug info:', { error, body: req.body });
-    
+    logger.error("User creation failed:", error);
+    logger.debug("Debug info:", { error, body: req.body });
+
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
     }

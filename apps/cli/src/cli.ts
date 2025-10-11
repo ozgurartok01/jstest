@@ -68,7 +68,7 @@ const buildHeaders = (requireAuth: boolean) => {
   const token = process.env.USER_CLI_TOKEN ?? loadToken();
   if (!token) {
     console.error(
-      "Missing USER_CLI_TOKEN. Run 'user-cli login' or 'user-cli create' to get a token."
+      "Missing USER_CLI_TOKEN. Run 'user-cli login' or 'user-cli create' to get a token.",
     );
     console.error(`If the CLI saved a token, check ${TOKEN_FILE}`);
     return null;
@@ -79,11 +79,15 @@ const buildHeaders = (requireAuth: boolean) => {
 };
 
 const printUserSummary = (user: any) => {
-  console.log(`User: ${user.name} (${user.id})${user.age !== undefined ? ` - age ${user.age}` : ""}`);
+  console.log(
+    `User: ${user.name} (${user.id})${user.age !== undefined ? ` - age ${user.age}` : ""}`,
+  );
 
   if (user.emails && user.emails.length > 0) {
     const details = user.emails
-      .map((entry: any) => `${entry.email}${entry.isPrimary ? " [primary]" : ""}`)
+      .map(
+        (entry: any) => `${entry.email}${entry.isPrimary ? " [primary]" : ""}`,
+      )
       .join(", ");
     console.log(`Emails: ${details}`);
   }
@@ -127,7 +131,9 @@ const createUser = command({
       process.env.USER_CLI_TOKEN = data.token;
       printUserSummary(data.user);
       console.log(`Token: ${data.token}`);
-      console.log(`Token saved to ${TOKEN_FILE}. Future commands auto-load it.`);
+      console.log(
+        `Token saved to ${TOKEN_FILE}. Future commands auto-load it.`,
+      );
     } catch (error) {
       logger.error("CLI user create failed", error as any);
       logger.debug("Create debug info", { name, age, emailList, role });
@@ -158,11 +164,13 @@ const loginUser = command({
         return;
       }
 
-      const data = (await response.json()) as { token: string, user: any };
+      const data = (await response.json()) as { token: string; user: any };
       saveToken(data.token);
       process.env.USER_CLI_TOKEN = data.token;
       console.log(`Token: ${data.token}`);
-      console.log(`Token saved to ${TOKEN_FILE}. Future commands auto-load it.`);
+      console.log(
+        `Token saved to ${TOKEN_FILE}. Future commands auto-load it.`,
+      );
       console.log("-----");
       console.log(`User: ${data.user.name}`);
       console.log(`Logged as: ${data.user.role}`);
@@ -188,9 +196,12 @@ const listUsers = command({
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/users?page=${page}&limit=${limit}`, {
-        headers: headers as any,
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/users?page=${page}&limit=${limit}`,
+        {
+          headers: headers as any,
+        },
+      );
 
       if (!response.ok) {
         console.error("Error fetching users:", response.statusText);
@@ -198,7 +209,7 @@ const listUsers = command({
       }
 
       const payload = (await response.json()) as UserListResponse | any[];
-      const items = Array.isArray(payload) ? payload : payload.items ?? [];
+      const items = Array.isArray(payload) ? payload : (payload.items ?? []);
 
       if (items.length === 0) {
         console.log("No users found.");
@@ -206,7 +217,9 @@ const listUsers = command({
       }
 
       if (!Array.isArray(payload)) {
-        console.log(`Page ${payload.page} / Limit ${payload.limit} / Total ${payload.total}`);
+        console.log(
+          `Page ${payload.page} / Limit ${payload.limit} / Total ${payload.total}`,
+        );
       }
 
       for (const user of items) {

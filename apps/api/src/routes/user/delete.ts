@@ -11,15 +11,17 @@ import defineAbilityFor from "../../utils/define-Ability";
 
 export const remove = async (req: Request, res: Response) => {
   try {
-    
-
     const { id } = idParamSchema.parse(req.params);
-    
+
     // Delete emails first (hard delete to avoid FK constraint)
     await db.delete(emails).where(eq(emails.userId, id)).run();
 
     // Delete user
-    const result = await db.delete(users).where(eq(users.id, id)).returning().get();
+    const result = await db
+      .delete(users)
+      .where(eq(users.id, id))
+      .returning()
+      .get();
 
     return res.status(200).json({ deletedUser: result });
   } catch (error) {

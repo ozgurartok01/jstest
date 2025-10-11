@@ -1,4 +1,8 @@
-import jwt, { type JwtPayload as DefaultJwtPayload, type Secret, type SignOptions } from "jsonwebtoken";
+import jwt, {
+  type JwtPayload as DefaultJwtPayload,
+  type Secret,
+  type SignOptions,
+} from "jsonwebtoken";
 import type { StringValue } from "ms";
 
 import logger from "./logger";
@@ -14,7 +18,8 @@ export interface User {
   role?: string;
 }
 
-export function signAccessToken(arg: User): string { // no need for this
+export function signAccessToken(arg: User): string {
+  // no need for this
   const { id, role } = arg;
 
   const options: SignOptions = {

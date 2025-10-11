@@ -1,27 +1,29 @@
 import { z } from "zod";
 
-const emailField = z.email({ message: "invalid email" }).transform((value) => value.trim().toLowerCase());
-
+const emailField = z
+  .email({ message: "invalid email" })
+  .transform((value) => value.trim().toLowerCase());
 
 export const userSchema = z.object({
   name: z.string().min(1, "name is required").trim(),
   age: z.coerce.number().int().min(0, "age must be >= 0"),
   emails: z.array(emailField).min(1, "at least one email is required"),
-  role: z.enum(["admin","customer"])
+  role: z.enum(["admin", "customer"]),
 });
 
-export const userPatchSchema = z.object({
-  name: z.string().min(1).trim().optional(),
-  age: z.coerce.number().int().min(0).optional(),
-}).refine(
-  (data) => Object.keys(data).length > 0,  //remove if more than one user schema
-  { message: "Nothing to update" }
-);
+export const userPatchSchema = z
+  .object({
+    name: z.string().min(1).trim().optional(),
+    age: z.coerce.number().int().min(0).optional(),
+  })
+  .refine(
+    (data) => Object.keys(data).length > 0, //remove if more than one user schema
+    { message: "Nothing to update" },
+  );
 
 export const loginSchema = z.object({
-  email: emailField
+  email: emailField,
 });
-
 
 // Params: /users/:id
 export const idParamSchema = z.object({

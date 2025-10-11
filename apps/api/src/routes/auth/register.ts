@@ -3,8 +3,8 @@ import { eq, inArray } from "drizzle-orm";
 
 import { db } from "../../utils/db";
 import logger from "../../utils/logger";
-import { emails, users} from "../../schemas/schema";
-import {signAccessToken } from "../../utils/auth";
+import { emails, users } from "../../schemas/schema";
+import { signAccessToken } from "../../utils/auth";
 import { userSchema } from "../../schemas/zodschemas";
 import { ZodError, z } from "zod";
 
@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 
       const createdUser = await tx
         .insert(users)
-        .values({ name, age, role})
+        .values({ name, age, role })
         .returning()
         .get();
 
@@ -41,11 +41,11 @@ export const register = async (req: Request, res: Response) => {
       return { user: createdUser, emails: emailsToInsert };
     });
 
-    const token = signAccessToken( result.user);
+    const token = signAccessToken(result.user);
 
     return res.status(201).json({
       token,
-      ...result
+      ...result,
     });
   } catch (error) {
     logger.error("User registration failed", error);

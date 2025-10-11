@@ -12,34 +12,30 @@ export const list = async (req: Request, res: Response) => {
     const { page, limit } = listQuerySchema.parse(req.query);
     const offset = (page - 1) * limit;
 
-    const canSeeEmails = req.ability?.can('read', 'Email') ?? false;
+    const canSeeEmails = req.ability?.can("read", "Email");
 
     const usersList = await db.query.users.findMany({
       limit,
       offset,
       with: {
         emails: {
-          where: eq(emails.isDeleted, false),
+          where: eq(emails.isDeleted, false), // nodejs pdf generator pdf kit
           columns: {
-            email: true,
+            email: canSeeEmails,
             isPrimary: true,
           },
         },
       },
     });
-    
-    const totalResult = await db.select({ count: count() }).from(users);
-    const total = totalResult[0]?.count || 0;
 
-    const sanitizedUsers = usersList.map(({ emails: userEmails, ...rest }) => (
-      canSeeEmails ? { ...rest, emails: userEmails } : rest
-    ));
+    //const totalResult = await db.select({ count: count() }).from(users);
+    //const total = totalResult[0]?.count || 0;
 
-    res.json({ page, limit, total, items: sanitizedUsers });
+    res.json({ page, limit, items: usersList });
   } catch (error) {
-    logger.error('User list failed:', error);
-    logger.debug('Debug info:', { error, query: req.query });
-    
+    logger.error("User list failed:", error);
+    logger.debug("Debug info:", { error, query: req.query });
+
     if (error instanceof ZodError) {
       return res.status(400).json({ errors: z.treeifyError(error) });
     }

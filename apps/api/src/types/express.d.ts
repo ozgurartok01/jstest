@@ -1,5 +1,5 @@
 import { boolean } from "drizzle-orm/gel-core";
-import type { AppAbility } from '../utils/define-Ability';
+import type { AppAbility } from "../utils/define-Ability";
 
 import "express";
 
@@ -10,9 +10,9 @@ declare global {
       role?: string;
     }
 
-    interface Request { 
+    interface Request {
       user?: User;
-      ability? : AppAbility;
+      ability?: AppAbility;
     }
   }
 }

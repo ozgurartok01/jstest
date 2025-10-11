@@ -27,7 +27,9 @@ if (!loaded) {
 const { JWT_SECRET, JWT_EXPIRES_IN } = process.env;
 
 if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET is required. Set it in your environment or .env file.");
+  throw new Error(
+    "JWT_SECRET is required. Set it in your environment or .env file.",
+  );
 }
 
 export const env = {

@@ -5,7 +5,11 @@ import { verifyAccessToken } from "../utils/auth";
 
 import defineAbilityFor from "../utils/define-Ability";
 
-export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
+export const requireAuth = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -22,8 +26,7 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
       role: payload.role, //kullanıcı rollerini arrayle tut
     };
 
-    req.ability = defineAbilityFor(req.user)
-
+    req.ability = defineAbilityFor(req.user);
 
     return next();
   } catch (error) {
