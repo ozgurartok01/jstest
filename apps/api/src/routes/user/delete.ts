@@ -3,16 +3,16 @@ import { Request, Response } from "express";
 import { users, emails } from "../../schemas/schema";
 import { eq } from "drizzle-orm";
 import { idParamSchema } from "../../schemas/zodschemas";
-import { ZodError, z } from "zod";
+import { ZodError, object, z } from "zod";
 import logger from "../../utils/logger";
 import { subject } from "@casl/ability";
-
-import defineAbilityFor from "../../utils/define-Ability";
 
 export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = idParamSchema.parse(req.params);
 
+    const ability = req.ability?.can("delete", subject("User", { id }));
+    if (!ability) return res.status(403).json({ error: "Forbidden" });
     // Delete emails first (hard delete to avoid FK constraint)
     await db.delete(emails).where(eq(emails.userId, id)).run();
 

@@ -18,7 +18,7 @@ export const get = async (req: Request, res: Response) => {
         emails: {
           where: eq(emails.isDeleted, false),
           columns: {
-            email: true,
+            email: canSeeEmails,
             isPrimary: true,
           },
         },
@@ -27,12 +27,7 @@ export const get = async (req: Request, res: Response) => {
 
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    const { emails: userEmails, ...userData } = user;
-    const payload = canSeeEmails
-      ? { ...userData, emails: userEmails }
-      : userData;
-
-    res.json(payload);
+    res.json(user);
   } catch (error) {
     logger.error("User get failed:", error);
     logger.debug("Debug info:", { error, params: req.params });

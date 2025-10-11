@@ -18,5 +18,3 @@ This project demonstrates how to combine **type-safe database models** with **ru
 - SQLite database managed with **Drizzle ORM**
 - Error handling and clean API responses
 - Written in **TypeScript**
-
-

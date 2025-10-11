@@ -1,5 +1,5 @@
 import { boolean } from "drizzle-orm/gel-core";
-import type { AppAbility } from "../utils/define-Ability";
+import type { AppAbility } from "../utils/define-ability";
 
 import "express";
 

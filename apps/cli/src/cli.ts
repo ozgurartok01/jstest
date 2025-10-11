@@ -357,6 +357,68 @@ const deleteUser = command({
   },
 });
 
-run([createUser, loginUser, listUsers, getUser, updateUser, deleteUser], {
-  name: "user-cli",
+const exportUsersPdf = command({
+  name: "export-pdf",
+  shortDesc: "Download all users as a PDF report",
+  options: {
+    output: string()
+      .desc("Destination file path (default: ./users-report.pdf)")
+      .alias("o"),
+  },
+  handler: async ({ output }) => {
+    try {
+      const headers = buildHeaders(true);
+      if (!headers) {
+        return;
+      }
+
+      const pdfHeaders: Record<string, string> = { ...headers };
+      delete pdfHeaders["Content-Type"];
+      pdfHeaders.Accept = "application/pdf";
+
+      const response = await fetch(`${API_BASE_URL}/users/export/pdf`, {
+        headers: pdfHeaders as any,
+      });
+
+      if (!response.ok) {
+        const error = await response
+          .json()
+          .catch(() => ({ error: response.statusText }));
+        logger.debug("Export PDF failed", error);
+        console.error("Error exporting users PDF:", error);
+        return;
+      }
+
+      const pdfBuffer = Buffer.from(await response.arrayBuffer());
+      const resolvedPath = path.resolve(
+        output ?? path.join(process.cwd(), "users-report.pdf"),
+      );
+
+      const directory = path.dirname(resolvedPath);
+      if (!existsSync(directory)) {
+        mkdirSync(directory, { recursive: true });
+      }
+
+      writeFileSync(resolvedPath, pdfBuffer);
+      console.log(`Users PDF saved to ${resolvedPath}`);
+    } catch (error) {
+      logger.error("CLI export PDF failed", error as any);
+      console.error("Error exporting users to PDF:", error);
+    }
+  },
 });
+
+run(
+  [
+    createUser,
+    loginUser,
+    listUsers,
+    getUser,
+    updateUser,
+    deleteUser,
+    exportUsersPdf,
+  ],
+  {
+    name: "user-cli",
+  },
+);

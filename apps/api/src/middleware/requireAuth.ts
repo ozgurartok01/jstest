@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger";
 import { verifyAccessToken } from "../utils/auth";
 
-import defineAbilityFor from "../utils/define-Ability";
+import defineAbilityFor from "../utils/define-ability";
 
 export const requireAuth = (
   req: Request,
