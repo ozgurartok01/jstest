@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { users, emails } from "../../schemas/schema";
 import { eq } from "drizzle-orm";
 import { idParamSchema } from "../../schemas/zodschemas";
-import { ZodError, object, z } from "zod";
+import { ZodError, z } from "zod";
 import logger from "../../utils/logger";
 import { subject } from "@casl/ability";
 

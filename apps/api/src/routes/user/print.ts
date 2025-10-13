@@ -73,15 +73,15 @@ export const print = async (req: Request, res: Response) => {
     } else {
       usersList.forEach((user, index) => {
         const emailEntries = canSeeEmails
-          ? ((user.emails ?? []) as Array<{
-              email?: string | null;
-              isPrimary: boolean;
-            }>)
+          ? (
+              (user.emails ?? []) as Array<{
+                email?: string | null;
+                isPrimary: boolean;
+              }>
+            )
               .map((item) => {
                 if (!item.email) return undefined;
-                return item.isPrimary
-                  ? `${item.email} (primary)`
-                  : item.email;
+                return item.isPrimary ? `${item.email} (primary)` : item.email;
               })
               .filter((value): value is string => Boolean(value))
           : [];

@@ -36,13 +36,6 @@ export const listQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(10),
 });
 
-// Email operations
-export const emailSchema = z.object({
-  email: z.string().email("invalid email"),
-  isPrimary: z.boolean().default(false),
-});
-
-export const addEmailSchema = z.object({
-  email: z.string().email("invalid email"),
-  isPrimary: z.boolean().default(false),
+export const postSchema = z.object({
+  content: z.string().min(1, "content is required").trim(),
 });

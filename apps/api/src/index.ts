@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 
 import { authLogin, authRegister } from "./routes/auth";
+import { create as createPost } from "./routes/post/create";
 import {
   userUpdate,
   userList,
@@ -22,6 +23,8 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.post("/auth/register", authRegister);
 app.post("/auth/login", authLogin);
+
+app.post("/post/create", requireAuth, createPost);
 
 app.get("/users", requireAuth, userList);
 app.get("/users/export/pdf", requireAuth, userPrint);
