@@ -79,9 +79,7 @@ const buildHeaders = (requireAuth: boolean) => {
 };
 
 const printUserSummary = (user: any) => {
-  console.log(
-    `User: ${user.name} (${user.id})${user.age !== undefined ? ` - age ${user.age}` : ""}`,
-  );
+  console.log(`User: ${user.name} (${user.id})${` - age ${user.age}`}`);
 
   if (user.emails && user.emails.length > 0) {
     const details = user.emails
@@ -89,7 +87,7 @@ const printUserSummary = (user: any) => {
         (entry: any) => `${entry.email}${entry.isPrimary ? " [primary]" : ""}`,
       )
       .join(", ");
-    console.log(`Emails: ${details}`);
+    console.log(user.emails);
   }
 };
 

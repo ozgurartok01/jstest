@@ -19,7 +19,7 @@ export const list = async (req: Request, res: Response) => {
       offset,
       with: {
         emails: {
-          where: eq(emails.isDeleted, false), // nodejs pdf generator pdf kit
+          where: eq(emails.isDeleted, false),
           columns: {
             email: canSeeEmails,
             isPrimary: true,

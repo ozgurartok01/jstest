@@ -26,8 +26,8 @@ app.post("/auth/login", authLogin);
 app.get("/users", requireAuth, userList);
 app.get("/users/export/pdf", requireAuth, userPrint);
 app.get("/users/:id", requireAuth, userGet);
-app.patch("/users/:id",requireAuth,userUpdate,);
-app.delete("/users/:id",requireAuth, userDelete);
+app.patch("/users/:id", requireAuth, userUpdate);
+app.delete("/users/:id", requireAuth, userDelete);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Not Found" });

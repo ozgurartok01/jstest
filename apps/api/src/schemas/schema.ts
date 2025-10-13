@@ -34,7 +34,7 @@ export const emails = sqliteTable("emails", {
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   emails: many(emails),
-}));
+}));  
 
 export const emailsRelations = relations(emails, ({ one }) => ({
   user: one(users, {
